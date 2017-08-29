@@ -481,8 +481,13 @@ var Arrows = function(Glide, Core) {
      * @param {Object} event
      * @return {Void}
      */
+
+    // var clickedArrow;
+
     Arrows.prototype.click = function(event) {
         event.preventDefault();
+
+        Glide.clickedArrow = this;
 
         if (!Core.Events.disabled) {
             Core.Run.pause();
@@ -1232,7 +1237,10 @@ var Events = function(Glide, Core) {
             slider: Glide.slider,
             swipe: {
                 distance: (Core.Touch.distance || 0)
-            }
+            },
+
+            // give back clicked arrow
+            arrow: Glide.clickedArrow
         };
     };
 
@@ -2128,6 +2136,9 @@ var Glide = function(element, options) {
 
     // Store main slider DOM element.
     this.element = element;
+
+    // for passing out the clicked Arrow
+    this.clickedArrow = {};
 
     // Collect slider DOM and
     // init slider sizes.
